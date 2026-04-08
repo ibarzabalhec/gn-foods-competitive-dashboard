@@ -385,6 +385,85 @@ tbody tr{opacity:0;transform:translateX(-10px);transition:opacity .3s ease,trans
 /* RESPONSIVE */
 @media(max-width:1199px){.card-grid.cols-4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.hamburger{display:flex}.main{margin-left:0}.section{padding:36px 18px}.hero{padding:56px 18px 40px}.hero h1{font-size:28px}.card-grid.cols-2,.card-grid.cols-3,.card-grid.cols-4{grid-template-columns:1fr}.section-title{font-size:22px}.bar-label{width:110px;font-size:11px}.search-input{width:100%}.state-stats,.brand-meta{grid-template-columns:1fr}.positioning-grid{grid-template-columns:1fr;min-height:auto}.positioning-grid::before,.positioning-grid::after{display:none}.audit-row{grid-template-columns:1fr;gap:3px}}
+
+/* ===== MOBILE "ON RAILS" REVAMP ===== */
+/* Global: lock horizontal scroll on the page itself */
+html,body{max-width:100vw;overflow-x:hidden}
+.main{max-width:100vw;overflow-x:hidden}
+
+@media(max-width:900px){
+  /* Any element with inline min-width: escape by letting parent scroll */
+  .card[style*="overflow-x:auto"],.card[style*="overflow-x: auto"]{-webkit-overflow-scrolling:touch}
+  /* Generic: wrap wide content so it scrolls internally, not the page */
+  .section>*,.section>.card,.section>.card-grid{max-width:100%}
+  /* Tab bar: allow horizontal scroll inside, don't push page */
+  .tab-bar{overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tab-bar::-webkit-scrollbar{display:none}
+  .tab-bar button{flex:0 0 auto;white-space:nowrap}
+  /* Hero stat cards stack cleanly */
+  .card-grid.cols-2,.card-grid.cols-3,.card-grid.cols-4{grid-template-columns:1fr!important;gap:14px}
+  /* Inline min-width containers inside cards — let the card scroll */
+  .card>div[style*="min-width"]{min-width:auto!important}
+}
+
+@media(max-width:768px){
+  /* Tighter section padding */
+  .section{padding:32px 14px}
+  .hero{padding:44px 14px 32px}
+  .hero h1{font-size:24px;line-height:1.2}
+  .hero p,.hero .subtitle{font-size:13px}
+  .section-title{font-size:20px;line-height:1.25}
+  .narrative{font-size:14px;line-height:1.7}
+
+  /* Tables: force internal horizontal scroll, not page scroll */
+  .table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+  table{font-size:12px;min-width:640px}
+  th,td{padding:8px 10px!important;white-space:nowrap}
+  td[style*="white-space:normal"]{white-space:normal!important;min-width:160px}
+
+  /* Scatter / positioning charts — scale to viewport */
+  .scatter-container,.pos-map-container,.positioning-grid{max-width:100%!important;width:100%!important}
+  .scatter-container{height:auto;aspect-ratio:16/11}
+  .scatter-container svg{width:100%;height:auto;display:block}
+
+  /* Bar charts */
+  .bar-row{flex-wrap:wrap}
+  .bar-label{width:100%!important;font-size:11px;margin-bottom:3px}
+  .bar-track{width:100%}
+
+  /* Stat numbers: shrink giant hero metrics that overflow */
+  .stat-value,.big-number,.hero-metric{font-size:clamp(22px,7vw,36px)!important;word-break:break-word}
+  .card h2,.card h3{word-wrap:break-word;overflow-wrap:break-word}
+
+  /* Table controls wrap */
+  .table-controls{flex-direction:column;align-items:stretch;gap:8px}
+  .table-controls>*{width:100%}
+
+  /* Comparison panel slides full width */
+  .comparison-panel{width:100vw;max-width:100vw;right:-100vw}
+  .comparison-panel.open{right:0}
+
+  /* Calculator & tour cards fit viewport */
+  .calc-container,.tour-card,.pdf-modal{max-width:calc(100vw - 28px);width:auto}
+
+  /* Any generic inline max-width:Xpx containers */
+  [style*="max-width:940px"],[style*="max-width:880px"],[style*="max-width:860px"],[style*="max-width:780px"],[style*="max-width:700px"]{max-width:100%!important}
+
+  /* Catch-all: nothing should force >100vw except tables inside wrappers */
+  .section img,.section svg{max-width:100%;height:auto}
+}
+
+@media(max-width:480px){
+  .section{padding:28px 12px}
+  .hero{padding:36px 12px 28px}
+  .hero h1{font-size:22px}
+  .section-title{font-size:18px}
+  .tab-bar button{font-size:12px;padding:10px 12px}
+  .card{padding:16px!important}
+  .stat-value,.big-number{font-size:clamp(20px,6.5vw,30px)!important}
+  table{font-size:11px}
+  th,td{padding:6px 8px!important}
+}
 </style>
 </head>
 <body>
